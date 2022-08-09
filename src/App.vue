@@ -9,7 +9,7 @@ import NavBar from './components/NavBar.vue'
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:'Noto Sans', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

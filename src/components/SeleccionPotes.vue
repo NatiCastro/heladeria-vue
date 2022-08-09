@@ -1,5 +1,5 @@
-<template>
-    <h2>Potes</h2>
+<template class="container">
+    <h2>Elegí tu pote</h2>
     <form @submit="submit" ref="form">
     <ul class="potes">
         <li v-for="p in potesKg" :key="p">
@@ -8,7 +8,7 @@
         </vs-radio>
         </li>
     </ul>
-    <vs-button color="dark" type="filled" @click="submit">Enviar</vs-button>
+    <vs-button color="dark" type="filled" @click="submit">Agregar</vs-button>
     </form>
 </template>
 
@@ -54,8 +54,14 @@ function submit () {
 </script>
 
 <style scoped>
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 h2 {
     margin: 1rem;
+    text-align: center;
 }
 .potes {
     margin: 1rem;

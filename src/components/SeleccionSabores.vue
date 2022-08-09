@@ -6,21 +6,25 @@
             <input type="checkbox" :value="ic.value" :disabled="ic.disabled" @change="chooseIcecream($event, ic)">{{ ic.name }}
         </li>
     </ul>
-    <vs-button color="primary" type="filled">Submit</vs-button>
+    <vs-button color="primary" type="filled" :disabled="!isSubmitActive" @click="submit">Agregar</vs-button>
     </form>
 </template>
 
 <script setup>
-import { onMounted, ref, nextTick } from 'vue';
+import { onMounted, ref, nextTick, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useIceCream } from '../store/useIceCream.js';
 
-//Lo que estáa entre llaves es para renombrar (amount = mazSelectedItems) 
-const { amount : maxSelectedItems} = useIceCream();
+//Para dirigir al componente final
+const router = useRouter();
+
+//Lo que está entre llaves es para renombrar (amount = maxSelectedItems) 
+const { amount : maxSelectedItems, setIcecreams} = useIceCream();
 
 //console.log(maxSelectedItems);
 
 const icreams = ref([]);
-
+//Función para saber qué sabor eligió y que no esté seleccionado ya
 function chooseIcecream (e, ic) {
     console.log({e, ic})
 
@@ -39,26 +43,22 @@ function chooseIcecream (e, ic) {
             }
         }
         return original
-
+    
+    //Para saber cuántos ha seleccionado
     }).map((ic, index, icecreamsUpdated) => {
         const icecreamChecked = icecreamsUpdated.filter(x => !!(x.value)).length;
 
-        console.log({icecreamChecked})
-
-        /*
-            Saber el máximo de sabores
-            Los que no están seleccionados
-
-        */
+        console.log(icecreamChecked)
 
         return {
             ...ic,
-            disabled: ic.value !== true && icecreamChecked === maxSelectedItems
+            //Para que disabled se vuelva true
+            disabled: ic.value !== true && icecreamChecked == maxSelectedItems //va con 2 iguales y no 3
         }
 
     });
     nextTick(()=> {
-        console.log(ic.value, maxSelectedItems)
+        console.log(maxSelectedItems)
     })
 }
 
@@ -94,6 +94,24 @@ onMounted(() => {
     });
 });
 
+//Desabilitar botón submit antes de haber elegido los sabores
+const isSubmitActive = computed(() => {
+    const icecreamChecked = icreams.value.filter(x=> x.value).length;
 
+    return icecreamChecked <= maxSelectedItems && icecreamChecked > 0
+})
+
+function submit () {
+    setIcecreams(
+
+        icreams.value
+            .filter(icecream => icecream.value)
+            .map(icecream => icecream.name)
+    )
+         router.push({
+            name: "final"
+    });
+    
+} 
 
 </script>
