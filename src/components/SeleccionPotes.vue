@@ -1,14 +1,14 @@
 <template class="container">
     <h2>Elegí tu pote</h2>
-    <form @submit="submit" ref="form">
+    <form>
     <ul class="potes">
         <li v-for="p in potesKg" :key="p">
-        <vs-radio v-model="selectedPotes" vs-name="potes" :vs-value="p">
+        <vs-radio color="#a6d487" v-model="selectedPotes" vs-name="potes" :vs-value="p">
          {{ p }} Kg.
         </vs-radio>
         </li>
     </ul>
-    <vs-button color="dark" type="filled" @click="submit">Agregar</vs-button>
+    <button :disabled="notSelected" @click="submit">Agregar</button>
     </form>
 </template>
 
@@ -25,8 +25,6 @@ const sabores = useIceCream();
 
 const potes = ref([]);
 const selectedPotes = ref(null);
-const form = ref(null);
-
 
 onMounted(() => {
     fetch("potes.json")
@@ -38,17 +36,25 @@ onMounted(() => {
 
 const potesKg = computed(() => {
     return Object.keys(potes.value);
+    
+});
+
+//Función para desabilitar el botón si no eligió
+let notSelected = computed(() => {
+    return selectedPotes.value == null;
 })
 
 function submit () {
 
     //console.log("submit", potes.value[selectedPotes.value]);
-
+    console.log(sabores.amount);
     sabores.setAmount(potes.value[selectedPotes.value]);
-
+ 
     router.push({
         name: "sabores"
-    })
+    });
+
+
 }
 
 </script>
@@ -62,6 +68,8 @@ form {
 h2 {
     margin: 1rem;
     text-align: center;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 3rem;
 }
 .potes {
     margin: 1rem;
@@ -69,5 +77,21 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
     list-style: none;
+}
+button {
+    width: 10rem;
+    height: 2.5rem;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 1.3rem;
+    color: #fff;
+    background-color: #F37878;
+    padding: 0.5rem 1rem;
+    border: 1px solid #F37878;
+    border-radius: 40px;
+    font-weight: 500;
+}
+button:hover {
+    color: rgba(255, 255, 255, 0.733);
+    background-color: #f37878e7;
 }
 </style>

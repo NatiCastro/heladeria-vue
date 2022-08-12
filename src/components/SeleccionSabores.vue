@@ -1,12 +1,12 @@
 <template>
     <h1>Podés elegir {{ maxSelectedItems }} sabores</h1>
     <form>
-    <ul>
+    <ul class="list">
         <li v-for="(ic) in icreams" :key="ic.id">       
             <input type="checkbox" :value="ic.value" :disabled="ic.disabled" @change="chooseIcecream($event, ic)">{{ ic.name }}
         </li>
     </ul>
-    <vs-button color="primary" type="filled" :disabled="!isSubmitActive" @click="submit">Agregar</vs-button>
+    <button :disabled="!isSubmitActive" @click="submit">Agregar</button>
     </form>
 </template>
 
@@ -115,3 +115,49 @@ function submit () {
 } 
 
 </script>
+
+<style scoped>
+h1 {
+    margin: 1rem;
+    text-align: center;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 2.8rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.list {
+    margin: 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+li {
+    margin: 0.5rem;
+    list-style: none;
+}
+input {
+    margin-right: 0.5rem;
+}
+button {
+    width: 14rem;
+    height: 3rem;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 1.3rem;
+    color: #fff;
+    background-color: #F37878;
+    padding: 0.5rem 1rem;
+    border: 1px solid #F37878;
+    border-radius: 40px;
+    font-weight: 500;
+}
+button:hover {
+    color: rgba(255, 255, 255, 0.733);
+    background-color: #f37878e7;
+}
+
+
+</style>

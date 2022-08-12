@@ -1,7 +1,4 @@
 <template>
-  <div class="hello">
-    <h1>Dani Helados</h1>
-    </div>
         <div class="box">
           <div class="box__container">
             <h3 class="box__title">Distruta del mejor helado</h3>
@@ -16,9 +13,9 @@
         </div>
         <div class="box box__dos">
           <div class="box__container">
-            <h3 class="box__title">Distruta del mejor helado</h3>
+            <h3 class="box__title">Hacé tu compra Online</h3>
             <p class="box__text">
-              Helados artesanales de la mejor calidad y al mejor precio!
+             Pedilo y te lo acercamos hasta tu casa!
             </p>
           </div>
             <img
@@ -51,14 +48,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-h1 {
-  text-align: center;
-  color: #F37878;
-  font-size: 2.5rem;
-  margin-top: 1rem;
-}
 .box {
-    margin: 2rem;
+    margin: 1rem 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,13 +58,14 @@ h1 {
     flex-direction: row-reverse;
   }
   .box__title {
-    font-size: 3rem;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 3.5rem;
     text-align: center;
     padding: 0 5rem;
     margin-top: 2rem;
   }
   .box__text {
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-align: center;
     padding: 0 5rem;
   }
